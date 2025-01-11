@@ -6,6 +6,7 @@ package gomisbcore
 import "C"
 import (
 	"errors"
+	"fmt"
 	"io"
 	"os"
 	"sync"
@@ -24,12 +25,15 @@ func Init() error {
 	}
 
 	// Extract and load the shared library
-	// libPath, err := ExtractLibrary()
-	// if err != nil {
-	// 	return fmt.Errorf("failed to extract library: %w", err)
-	// }
+	libPath, err := ExtractLibrary()
+	if err != nil {
+		return fmt.Errorf("failed to extract library: %w", err)
+	}
 
-	libPathUnsafe := C.CString("/home/alexc/Work/gomisbcore/pkg/gomisbcore/MisbCoreNativeLib.so")
+	//libPathUnsafe := C.CString("/home/alexc/Work/gomisbcore/pkg/gomisbcore/MisbCoreNativeLib.so")
+
+	libPathUnsafe := C.CString(libPath)
+	defer C.free(unsafe.Pointer(libPathUnsafe))
 	defer C.free(unsafe.Pointer(libPathUnsafe))
 
 	ret := C.initMisbCore(libPathUnsafe)
