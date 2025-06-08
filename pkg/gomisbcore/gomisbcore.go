@@ -7,62 +7,64 @@ import "C"
 import (
 	"errors"
 	"fmt"
-	"io"
 	"os"
+	"path/filepath"
 	"sync"
 	"unsafe"
 )
 
-var misbCoreMutex = sync.Mutex{}
-var misbCoreInitialized = false
+var (
+	mu          sync.Mutex
+	initialized bool
+)
 
-func Init() error {
-	misbCoreMutex.Lock()
-	defer misbCoreMutex.Unlock()
+// Init loads the native library from libDir. It’s safe to call multiple times.
+func Init(libDir string) error {
+	mu.Lock()
+	defer mu.Unlock()
 
-	if misbCoreInitialized {
+	if initialized {
 		return nil
 	}
 
-	// Extract and load the shared library
-	libPath, err := ExtractLibrary()
-	if err != nil {
-		return fmt.Errorf("failed to extract library: %w", err)
+	// If libDir is empty, use the executable's directory
+	if libDir == "" {
+		exePath, err := os.Executable()
+		if err != nil {
+			return fmt.Errorf("gomisbcore: failed to get executable path: %v", err)
+		}
+		libDir = filepath.Dir(exePath)
 	}
 
-	//libPathUnsafe := C.CString("/home/alexc/Work/gomisbcore/pkg/gomisbcore/MisbCoreNativeLib.so")
+	// Allocate an error buffer
+	errBufSize := 512
+	errBuf := make([]byte, errBufSize)
+	cErrBuf := (*C.char)(unsafe.Pointer(&errBuf[0]))
 
-	libPathUnsafe := C.CString(libPath)
-	defer C.free(unsafe.Pointer(libPathUnsafe))
-	defer C.free(unsafe.Pointer(libPathUnsafe))
+	cLibDir := C.CString(libDir)
+	defer C.free(unsafe.Pointer(cLibDir))
 
-	ret := C.initMisbCore(libPathUnsafe)
-
-	if ret == 0 {
-		return errors.New("failed to initialize MisbCore")
+	if C.initMisbCore(cLibDir, cErrBuf, C.size_t(errBufSize)) == 0 {
+		return fmt.Errorf("gomisbcore: init failed while loading from %s (%s)", libDir, C.GoString(cErrBuf))
 	}
-
-	misbCoreInitialized = true
+	initialized = true
 	return nil
 }
 
+// Close tears down the native library. After a successful Close,
+// you can call Init again.
 func Close() error {
+	mu.Lock()
+	defer mu.Unlock()
 
-	misbCoreMutex.Lock()
-	defer misbCoreMutex.Unlock()
-
-	if misbCoreInitialized {
-
-		ret := C.closeMisbCore()
-		misbCoreInitialized = false
-
-		if ret == 0 {
-			return errors.New("failed to close MisbCore")
-		}
-	} else {
-		return errors.New("misbCore was not initialized")
+	if !initialized {
+		return errors.New("gomisbcore: not initialized")
 	}
 
+	if C.closeMisbCore() == 0 {
+		return errors.New("gomisbcore: close failed")
+	}
+	initialized = false
 	return nil
 }
 
@@ -100,25 +102,12 @@ func DecodeKlv(id uint64, buff []byte) (string, error) {
 	jsonStr := C.GoString(cJsonStr)
 
 	// Free the memory allocated by the C function
-	C.free(unsafe.Pointer(cJsonStr))
+	//	C.free(unsafe.Pointer(cJsonStr))
 
 	return jsonStr, nil
 }
 
 // ReadBinaryFile reads a binary file and returns its contents as a byte slice.
-func ReadBinaryFile(filePath string) ([]byte, error) {
-	// Open the file
-	file, err := os.Open(filePath)
-	if err != nil {
-		return nil, err
-	}
-	defer file.Close()
-
-	// Read the file's content into a byte slice
-	data, err := io.ReadAll(file)
-	if err != nil {
-		return nil, err
-	}
-
-	return data, nil
+func ReadBinaryFile(path string) ([]byte, error) {
+	return os.ReadFile(path)
 }

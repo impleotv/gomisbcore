@@ -9,7 +9,7 @@ import (
 
 func main() {
 	// Initialize the library
-	err := gomisbcore.Init()
+	err := gomisbcore.Init("")
 	if err != nil {
 		log.Fatalf("Failed to initialize MisbCore: %v", err)
 	}
