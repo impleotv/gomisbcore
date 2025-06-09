@@ -1,0 +1,43 @@
+site_name: MisbCore SDK
+site_description: Getting Started with MisbCore SDK
+site_author: Impleotv Systems Ltd
+copyright: 'Copyright &copy; 2024 IMPLEOTV SYSTEMS LTD'
+use_directory_urls: false
+
+theme:
+    name: mkdocs
+    custom_dir: custom_theme/
+  
+extra_css:
+  - css/extra.css
+
+nav:
+    - Home: index.md
+    - Getting started:
+      - Getting started: user-guide/getting-started.md     
+      - Encoding MISB 601 data: user-guide/encoding-601.md 
+      - Decoding MISB 601 data: user-guide/decoding-601.md   
+      - MISB 0102: ST102/st102.md
+      - MISB 0806:      
+        - MISB 0806: ST806/st806.md  
+        - MISB 0806 User Defined data plugin: ST806/pluginDevelopment.md    
+        - Application with User Defined data plugin: ST806/stplayer-rvt-user-defined.md    
+      - MISB 0903: ST903/st903.md   
+      - Licensing: user-guide/licensing.md
+      - Native library: 
+        - Using Native library: user-guide/native-lib.md  
+        - Consuming from Nodejs: user-guide/nodejs-native-lib.md
+    - Supported standards:
+      - MISB 601: user-guide/st601-supported.md 
+      - MISB 102: user-guide/st102-supported.md 
+      - MISB 806: user-guide/st806-supported.md 
+      - MISB 903: user-guide/st903-supported.md 
+      - MISB 1204: user-guide/st1204-supported.md
+      - MISB 1601: user-guide/st1601-supported.md  
+    - STANAG 4609 and KLV:
+      - STANAG 4609: KLV/stanag4609.md
+      - KLV: KLV/klv.md
+
+
+
+
