@@ -5,7 +5,7 @@ Plugins allow you to extend the functionality of **User Defined Data** encoder a
 
 ## Plugins location
 
-**MisbCore** will try to locate plugins in a **./plugins** sub directory, so the installation is basically a coping the plugin binaries to this directory.
+**MisbCore** looks for plugins in a **./plugins** sub-directory, so installation simply involves copying the plugin binaries into this directory.
 
 
 ## Rvt User Defined data plugin

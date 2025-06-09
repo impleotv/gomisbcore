@@ -56,7 +56,7 @@ Console.WriteLine(jsonStr);
 
 ## Options
 
-**MisbCore SDK** has some configuration options you may want to use to fine-tune it's behavior.
+**MisbCore SDK** has several configuration options you can use to fine-tune its behavior.
 
 - **TimeStampAsDateTime** property - set it to **true** in order to get the timestamps in a **ISO 8601** format. Default - *false*
 - **RoundValues** property - set it to **true** in order to get the values rounded to the accuracy defined in the standard. Default - *true*
