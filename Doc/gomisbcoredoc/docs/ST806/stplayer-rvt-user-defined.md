@@ -1,10 +1,10 @@
-Plugins allow you to extend the functionality of **StPlayer** without any modification to the application.  
+Plugins allow you to extend the functionality of **StPlayer** without modifying the application.
 
-**StPlayer**> will look for existing plugins (and try to enumerate and load them) in the C:\Program Files\ImpleoTV\StPlayer\Bin\x64\plugins directory (if installed with defaults).
+**StPlayer** will look for existing plugins (and try to enumerate and load them) in the `C:\Program Files\ImpleoTV\StPlayer\Bin\x64\plugins` directory (if installed with the defaults).
 
-So, installing new plugins is basically copying the plugins dlls into this folder.
+Installing a new plugin simply requires copying the plugin DLLs into this folder.
 
-You can see installed plugins in the Options->Plugins
+You can view installed plugins in **Options > Plugins**
 
 ![Plugins](./Plugins.png)
 
@@ -12,7 +12,7 @@ You can see installed plugins in the Options->Plugins
 # Using RvtUserDefinedData plugin
 
 Each plugin implements its specific functionality.  
-For example, if user doesn't have **RvtUserDefinedData** plugin installed, **StPlayer** will show User defined RVT data as a data buffer.
+For example, if a user doesn't have the **RvtUserDefinedData** plugin installed, **StPlayer** will show user-defined RVT data as a data buffer.
 
 ![Compact form](./RvtWithoutPlugin.png)
 

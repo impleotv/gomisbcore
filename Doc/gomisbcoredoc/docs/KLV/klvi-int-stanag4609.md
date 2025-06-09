@@ -4,7 +4,7 @@ The MPEG-2 Transport Stream provides an infrastructure for the carriage of video
 
 ![KLV](./KLV_640x480.jpg)
 
-Below you can see some usefull information from the standards that define methods to time stamp compressed video streams and to transport video and metadata asynchronously or synchronously in compressed motion imagery streams. Implementation methods are defined that leverage the transport layer of MPEG-2 for carriage of motion imagery streams of varying types and bit rates as defined in the Motion Imagery Standards Profile concept of “X on 2”. Specific compressed video formats covered include MPEG-2 and H.264.
+Below is some useful information from the standards that define methods to timestamp compressed video streams and to transport video and metadata asynchronously or synchronously in compressed motion imagery streams. Implementation methods leverage the transport layer of MPEG-2 for carriage of motion imagery streams of varying types and bit rates, as described in the Motion Imagery Standards Profile concept of “X on 2.” Specific compressed video formats covered include MPEG‑2 and H.264.
 
 ## Anatomy of a STANAG 4609 stream
 

@@ -8,10 +8,10 @@
 
 ![KLV](./KLV_640x480.jpg)
 
-**MISBCore** SDK has a KLV encoder / decoder library integrated, so for generic **STANAG 4609** metadata related tasks there is no need to deal with it explicitly - user either provides KLV encoded data buffer (at the client side) and gets the decoded metadata back or (at the server/encoder side) supplies the structured (as json) metadata and receives a KLV encoded data buffer.
+**MISBCore** SDK has an integrated KLV encoder/decoder library, so for generic **STANAG 4609** metadata tasks there is no need to deal with KLV explicitly—the user either provides a KLV‑encoded data buffer on the client side and gets the decoded metadata back, or on the server side supplies structured (JSON) metadata and receives a KLV‑encoded buffer.
 
 ## Encoding/decoding metadata for Unmanned Air System (UAS)
-Unmanned Air Systems use two types of KLV encoded metadata. Universal Data Set (UDS) - the 16-byte key, basic encoding rules (BER) formatted length, and data value is appropriate for applications where bandwidth isn't a concern. However, transmitting the 16-byte universal key quickly uses up the available bandwidth. UAS airborne platforms use a wireless communications channel where the bandwidth allocated for metadata is limited. Because of the bandwidth disadvantages of using a Universal Data Set, it is more desirable to use a Local Data Set for transmission over a UAS Datalink. Local Data Set can use a 1, 2 or 4-byte key with a 1, 2, 4-byte, or BER encoded length. For more info about KLV use in UAS application see [KLV in UAS applications](./klv-in-uas.md)
+Unmanned Air Systems use two types of KLV‑encoded metadata. Universal Data Set (UDS)—the 16‑byte key with basic encoding rules (BER) formatted length and data value—is suitable where bandwidth is not a concern. However, transmitting the 16‑byte universal key quickly consumes available bandwidth. UAS platforms typically use wireless channels where bandwidth for metadata is limited. Because of this, it is preferable to use a Local Data Set for transmission over a UAS datalink. A Local Data Set can use a 1, 2, or 4‑byte key with a 1‑, 2‑, 4‑byte, or BER‑encoded length. For more information about using KLV in UAS applications, see [KLV in UAS applications](./klv-in-uas.md)
 
 
 
