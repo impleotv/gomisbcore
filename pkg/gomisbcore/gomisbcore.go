@@ -69,6 +69,8 @@ func Close() error {
 }
 
 func EncodeKlv(id uint64, jsonPcktStr string) ([]byte, error) {
+	mu.Lock()
+	defer mu.Unlock()
 
 	jsonPcktUnsafe := C.CString(jsonPcktStr)
 	defer C.free(unsafe.Pointer(jsonPcktUnsafe))
@@ -87,6 +89,8 @@ func EncodeKlv(id uint64, jsonPcktStr string) ([]byte, error) {
 }
 
 func DecodeKlv(id uint64, buff []byte) (string, error) {
+	mu.Lock()
+	defer mu.Unlock()
 
 	cBuff := (*C.char)(unsafe.Pointer(&buff[0]))
 	cBuffLen := C.int(len(buff))
